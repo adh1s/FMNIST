@@ -22,22 +22,21 @@ n_classes = 10
 transform_train= transforms.Compose([transforms.ToTensor(),
                                      transforms.Normalize((0.5,), (0.5,))])
 
-#transforms.RandomHorizontalFlip(p=0.5),
-
 transform_test= transforms.Compose([transforms.ToTensor(),
                                     transforms.Normalize((0.5,), (0.5,))])
 
-#downloaded the dataset using the using torchvision
-train_set = torchvision.datasets.FashionMNIST('dataset', train = True, transform=transform_train)
+#downloads and loads the dataset using the using torchvision/pytorch
+train_set = torchvision.datasets.FashionMNIST('dataset', train = True, transform=transform_train, download=True)
 trainloader = torch.utils.data.DataLoader(train_set, batch_size=batch_size,
                                           shuffle=True, num_workers=num_workers)
 
-test_set = torchvision.datasets.FashionMNIST('dataset', train = False, transform=transform_test)
+test_set = torchvision.datasets.FashionMNIST('dataset', train = False, transform=transform_test, download=True)
 testloader = torch.utils.data.DataLoader(test_set, batch_size=batch_size,
                                           shuffle=True, num_workers=num_workers)
 
 #initialise model
 net = CNNclassifier(img_size, n_channels, n_classes) 
+
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=lr) 
 scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.1, last_epoch=- 1, verbose=False)
@@ -130,8 +129,8 @@ plt.xlabel('Epoch')
 plt.ylabel('Learning rate')
 
 plt.show()
+#saves the plot of training stats
 plt.savefig(directory)
 
-#transforms - test a few!!!
 #function for training?
 #inference!!!
