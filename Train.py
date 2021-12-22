@@ -13,24 +13,26 @@ lr = 0.1
 batch_size = 512
 num_workers = 0
 max_epoch = 100
+patience = 5 #early stopping patience
 
 #dataset parameters
 img_size = 28 
 n_channels = 1 
 n_classes = 10 
 
-transform_train= transforms.Compose([transforms.ToTensor(),
-                                     transforms.Normalize((0.5,), (0.5,))])
+#name for locally saving checkpoint and training stats
+directory = 'notransforms'
 
-transform_test= transforms.Compose([transforms.ToTensor(),
-                                    transforms.Normalize((0.5,), (0.5,))])
+transform= transforms.Compose([transforms.ToTensor(),
+                                     transforms.Normalize((0.5,), (0.5,))])
+#many FMNIST models used this normalization
 
 #downloads and loads the dataset using the using torchvision/pytorch
-train_set = torchvision.datasets.FashionMNIST('dataset', train = True, transform=transform_train, download=True)
+train_set = torchvision.datasets.FashionMNIST('dataset', train = True, transform=transform, download=True)
 trainloader = torch.utils.data.DataLoader(train_set, batch_size=batch_size,
                                           shuffle=True, num_workers=num_workers)
 
-test_set = torchvision.datasets.FashionMNIST('dataset', train = False, transform=transform_test, download=True)
+test_set = torchvision.datasets.FashionMNIST('dataset', train = False, transform=transform, download=True)
 testloader = torch.utils.data.DataLoader(test_set, batch_size=batch_size,
                                           shuffle=True, num_workers=num_workers)
 
@@ -40,10 +42,8 @@ net = CNNclassifier(img_size, n_channels, n_classes)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=lr) 
 scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.1, last_epoch=- 1, verbose=False)
-patience = 5 #early stopping patience
-directory = 'notransforms'
 
-#lists to log the training statistics
+#log the training statistics
 train_loss = []
 test_loss = []
 train_accuracy = []
@@ -131,6 +131,3 @@ plt.ylabel('Learning rate')
 plt.show()
 #saves the plot of training stats
 plt.savefig(directory)
-
-#function for training?
-#inference!!!
