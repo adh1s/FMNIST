@@ -27,7 +27,7 @@ There are three main components:
 * Model.py : - 
 * Train.py: 
   * Variables to set:
-    * Hyperparameters for training: lr, batch_size, max_epoch, num_workers, patience(for early stopping) - initialized with standard values
+    * Hyperparameters for training: lr, batch_size, max_epoch, num_workers, patience(for early stopping), step_size and gamma (both for learning rate scheduling)  - initialized with standard values
     * Dataset parameters (based on spec. of dataset): img_size, n_channels, n_classes - initialized for FNMIST dataset
     * download (Bool value) - determines whether dataset is downloaded (set to True if FMNIST not already saved in file named 'dataset)
     * directory (string) -  name under which the best performing model during training and training statistics plot is stored
