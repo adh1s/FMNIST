@@ -39,7 +39,7 @@ train_set = torchvision.datasets.FashionMNIST('dataset', train=True, transform=t
 trainloader = torch.utils.data.DataLoader(train_set, batch_size=batch_size,
                                           shuffle=True, num_workers=num_workers)
 
-test_set = torchvision.datasets.FashionMNIST('dataset', train = False, transform=transform_test, download=True)
+test_set = torchvision.datasets.FashionMNIST('dataset', train = False, transform=transform_test, download=download)
 testloader = torch.utils.data.DataLoader(test_set, batch_size=batch_size,
                                           shuffle=True, num_workers=num_workers)
 
