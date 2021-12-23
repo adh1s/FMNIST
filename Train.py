@@ -22,17 +22,19 @@ n_classes = 10
 
 #name for locally saving checkpoint and training stats
 directory = 'notransforms'
+#change to False if FMNIST is already downloaded to directory: 'dataset'
+download = True
 
-transform= transforms.Compose([transforms.ToTensor(),
-                                     transforms.Normalize((0.5,), (0.5,))])
+transform = transforms.Compose([transforms.ToTensor(),
+                                transforms.Normalize((0.5,), (0.5,))])
 #many FMNIST models used this normalization
 
 #downloads and loads the dataset using the using torchvision/pytorch
-train_set = torchvision.datasets.FashionMNIST('dataset', train = True, transform=transform, download=True)
+train_set = torchvision.datasets.FashionMNIST('dataset', train = True, transform=transform, download=download)
 trainloader = torch.utils.data.DataLoader(train_set, batch_size=batch_size,
                                           shuffle=True, num_workers=num_workers)
 
-test_set = torchvision.datasets.FashionMNIST('dataset', train = False, transform=transform, download=True)
+test_set = torchvision.datasets.FashionMNIST('dataset', train = False, transform=transform, download=download)
 testloader = torch.utils.data.DataLoader(test_set, batch_size=batch_size,
                                           shuffle=True, num_workers=num_workers)
 
