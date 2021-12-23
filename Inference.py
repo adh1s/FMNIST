@@ -7,19 +7,9 @@ import numpy as np
 
 from Model import CNNclassifier
 
-#model to use for inference
-model_dir = 'checkpointnotransforms'
-
-model = CNNclassifier(img_size=28, n_channels=1, n_classes=10) #configured for F-MNIST
-model.load_state_dict(torch.load(model_dir))
-model.eval()
-
-transform_test= transforms.Compose([transforms.ToTensor(),
-                                    transforms.Normalize((0.5,), (0.5,))])
-
-test_set = torchvision.datasets.FashionMNIST('dataset', train = False, transform=transform_test)
-testloader = torch.utils.data.DataLoader(test_set, batch_size=1,
-                                         shuffle=True, num_workers=0)
+img_size = 28
+n_channels = 1
+n_classes = 10
 
 def output_label(input):
     output_mapping = {
@@ -47,8 +37,22 @@ def visualise_tensor(img):
     plt.imshow(img)
     plt.show()  
 
+#model to use for inference
+directory = 'trained_model'
+download = True
+
+model = CNNclassifier(img_size=img_size, n_channels=n_channels, n_classes=n_classes) #configured for F-MNIST
+model.load_state_dict(torch.load(directory))
+model.eval()
+
+transform_test= transforms.Compose([transforms.ToTensor(),
+                                    transforms.Normalize((0.5,), (0.5,))])
+
+test_set = torchvision.datasets.FashionMNIST('dataset', train = False, transform=transform_test, download=download)
+testloader = torch.utils.data.DataLoader(test_set, batch_size=1,
+                                         shuffle=True, num_workers=0)
+
 #picks a random image from the test set - displays image and prints prediction
-   
 inputs, classes = next(iter(testloader)) 
 outputs = model(inputs)
 label = torch.argmax(outputs, dim=1)
@@ -58,7 +62,6 @@ visualise_tensor(inputs)
 print(class_label)
 
 '''
-
 # Gathers a class wise incorrect/correct ratio -> helps to identify worst performing classes
 
 correct_dictionary = {}
