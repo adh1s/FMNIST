@@ -21,30 +21,3 @@ There are three main components:
 * Train.py : the main script which trains the CNN - loads the F-MNIST dataset and runs the training of the CNN with early-stopping.
 * Model.py : this file implements the architecture of the CNN - a summary (through torchsummary module) of the architecture is provided here too.
 * Inference.py : provides a few helper functions to help with inference. Running this file passes a random image from the validation dataset - printing the input image and the associated output class.
-
-### How to use:
-
-* Model.py : - 
-* Train.py: 
-  * Variables to set:
-    * Hyperparameters for training: lr, batch_size, max_epoch, num_workers, patience (for early stopping), step_size and gamma (both for learning rate scheduling)  - initialized with standard values
-    * Dataset parameters (based on spec. of dataset): img_size, n_channels, n_classes - initialized for FNMIST dataset
-    * download (Bool value) - determines whether dataset is downloaded (set to True if FMNIST not already saved in file named 'dataset)
-    * directory (string) -  name under which the best performing model during training and training statistics plot is stored
-  * Output Description:
-    * Prints validation accuracy at the end of every epoch during training
-    * Saves the best performing model's state dict as a checkpoint during training
-    * Saves a plots of training loss & validation loss - train accuracy & validation accuracy - learning_rate vs epoch
-* Inference.py: 
-  * Variables to set:
-    * model parameters - img_size, n_channels and n_classes (to set the 
-    * dataset parameters -  
-    * download (Bool) - 
-    * directory (string) - 
-  * Output Description:
-    *
-    *
-    *
-
-
-
